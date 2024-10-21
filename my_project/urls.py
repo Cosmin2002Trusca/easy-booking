@@ -16,9 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from easy_booking.views import my_easy_booking
 
 urlpatterns = [
-    path('easy_booking/', my_easy_booking, name='easy_booking'),
+    path('', include("easy_booking.urls"), name='easy_booking-urls'),
     path('admin/', admin.site.urls),
 ]

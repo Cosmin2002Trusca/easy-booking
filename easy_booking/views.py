@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-
+from django.views import generic
+from .models import Table, Booking
 # Create your views here.
-def my_easy_booking(request):
-    return HttpResponse("Hello, world!")
+
+class ReservationForm(generic.FormView):
+    model = Booking
