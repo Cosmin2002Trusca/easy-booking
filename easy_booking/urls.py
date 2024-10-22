@@ -7,6 +7,6 @@ urlpatterns = [
     path('', landing_page, name='landing_page'),  # Landing page
     path('register/', register, name='register'),  # Registration view
     path('login/', LoginView.as_view(template_name='easy_booking/login.html'), name='login'),  # Login view
-    path('logout/', LogoutView.as_view(next_page='login'), name='logout'),  # Logout view
+    path('logout/', LogoutView.as_view(next_page='landing_page'), name='logout'),  # Logout view
     path('booking/', create_booking, name='create_booking'), #Booking
 ]
