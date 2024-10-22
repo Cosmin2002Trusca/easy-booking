@@ -1,9 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django import forms
 from django.views import generic
 from .models import Booking, Table
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
+#Booking
+@login_required
 def create_booking(request):
     class InlineBookingForm(forms.ModelForm):
         class Meta:
@@ -23,3 +29,16 @@ def create_booking(request):
         form = InlineBookingForm()
 
     return render(request, 'easy_booking/reservation_form.html', {'form': form})
+
+#Authentification
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()  # Create the user
+            login(request, user)  # Log in the user immediately
+            return redirect('create_booking')  # Redirect to booking page
+    else:
+        form = UserCreationForm()
+
+    return render(request, 'easy_booking/register.html', {'form': form})
