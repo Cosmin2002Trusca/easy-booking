@@ -8,7 +8,8 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
-#Booking
+# Booking
+
 @login_required
 def create_booking(request):
     class InlineBookingForm(forms.ModelForm):
@@ -30,7 +31,8 @@ def create_booking(request):
 
     return render(request, 'easy_booking/reservation_form.html', {'form': form})
 
-#Authentification
+# Authentification
+
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -42,3 +44,10 @@ def register(request):
         form = UserCreationForm()
 
     return render(request, 'easy_booking/register.html', {'form': form})
+
+# Landing
+
+def landing_page(request):
+    if request.user.is_authenticated:
+        return redirect('create_booking')  # If logged in, redirect to booking page
+    return render(request, 'easy_booking/landing_page.html')  # Otherwise, show landing page
